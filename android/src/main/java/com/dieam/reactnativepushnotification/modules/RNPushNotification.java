@@ -121,6 +121,16 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
     }
 
     @ReactMethod
+    public void abandonPermissions() {
+        ReactContext reactContext = getReactApplicationContext();
+
+        Intent GCMService = new Intent(reactContext, RNPushNotificationRegistrationService.class);
+
+        GCMService.putExtra("senderID", "");
+        reactContext.startService(GCMService);
+    }
+
+    @ReactMethod
     public void checkPermissions(Promise promise) {
         ReactContext reactContext = getReactApplicationContext();
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(reactContext);
